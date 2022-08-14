@@ -77,7 +77,7 @@ const disLikeCard = (req, res) => {
     })
     .then((card) => res.send(card))
     .catch((err) => {
-      if (err.name === 'CastErrorr') {
+      if (err.name === 'CastError') {
         return res.status(BAD_REQUEST).send({ message: 'Некорректные данные' });
       }
       if (err.message === 'NotFound') {
