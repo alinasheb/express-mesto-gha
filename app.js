@@ -8,11 +8,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/users', require('./routes/users'));
-app.use('/cards', require('./routes/cards'));
-
-app.use((req, res) => res.status(404).send({ message: 'Ресурс не найден' }));
-
 app.use((req, res, next) => {
   req.user = {
     _id: '62f7be75eea56a8a069d584a', // вставьте сюда _id созданного в предыдущем пункте пользователя
@@ -20,6 +15,11 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use('/users', require('./routes/users'));
+app.use('/cards', require('./routes/cards'));
+
+app.use((req, res) => res.status(404).send({ message: 'Ресурс не найден' }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
