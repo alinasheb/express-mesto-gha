@@ -11,9 +11,16 @@
   "author": "Alina Sheb",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "celebrate": "^15.0.1",
     "express": "^4.18.1",
-    "mongoose": "^6.5.2"
+    "express-rate-limit": "^6.5.1",
+    "helmet": "^5.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "limiter": "^2.1.0",
+    "mongoose": "^6.5.2",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^8.21.0",
