@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
 const helmet = require('helmet');
 const {
   login,
@@ -36,6 +37,8 @@ app.use('/cards', require('./routes/cards'));
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
+
+app.use(errors());
 
 app.use(() => {
   throw new NotFound('Путь не найден');

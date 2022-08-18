@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const NotFound = require('../errors/NotFound');
+const ConflictingRequest = require('../errors/ConflictingRequest');
+const BadRequest = require('../errors/BadRequest');
 
 // получить всех пользователей
 const getUsers = (req, res, next) => {
@@ -18,7 +20,13 @@ const getUserById = (req, res, next) => {
       throw new NotFound('Пользователь с таким id не найден');
     })
     .then((users) => res.send(users))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadRequest('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 // создание пользователя
@@ -40,7 +48,13 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => User.findOne({ _id: user._id }))
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'MongoServerError' && err.code === 11000) {
+        next(new ConflictingRequest('Email уже существует'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 // обновление пользователя
@@ -51,7 +65,13 @@ const updateUser = (req, res, next) => {
       throw new NotFound('Пользователь с таким id не найден');
     })
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequest('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 // обновление аватара
@@ -62,7 +82,13 @@ const updateAvatar = (req, res, next) => {
       throw new NotFound('Пользователь с таким id не найден');
     })
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadRequest('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 const login = (req, res, next) => {
@@ -84,7 +110,13 @@ const getUserMe = (req, res, next) => {
       throw new NotFound('Пользователь с таким id не найден');
     })
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadRequest('Некорректные данные'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports = {
