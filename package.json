@@ -8,8 +8,19 @@
     "dev": "nodemon app.js",
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alinasheb/express-mesto-gha.git"
+  },
+  "keywords": [
+    "яндекс практикум"
+  ],
   "author": "Alina Sheb",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alinasheb/express-mesto-gha/issues"
+  },
+  "homepage": "https://https://github.com/alinasheb/express-mesto-gha#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
